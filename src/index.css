@@ -5,25 +5,7 @@
 body {
   background-color: whitesmoke;
   font-family: cursive;
-  color: white;
-}
-
-.header {
-  display: flex;
-  gap: 30px;
-  justify-content: flex-end;
-  font-size: 20px;
-  margin: 20px;
-  width: 95%;
-}
-
-.navLink {
-  text-decoration: none;
-  color: white;
-}
-
-.active {
-  color: wheat;
+  color: #111827;
 }
 
 .form {
@@ -68,27 +50,15 @@ body {
 #card h4 {
   font-size: larger;
   margin: 20px;
+  color: white;
 }
 
-li {
-  list-style-type: none;
-}
-
-section {
-  margin: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 1rem;
-}
-
-p {
+#card p {
   display: flex;
   text-align: justify;
   margin: 10px;
   height: 15%;
-  /* align-items: center; */
+  color: white;
 }
 
 button {
@@ -101,6 +71,7 @@ button {
   transition: border-color 0.25s;
   margin: 15px;
 }
+
 button:hover {
   border-color: wheat;
   background-color: rgb(231, 150, 0);
