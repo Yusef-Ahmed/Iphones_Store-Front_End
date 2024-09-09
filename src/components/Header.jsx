@@ -2,8 +2,6 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 const navigation = [
   { name: "Products", to: "/" },
-  { name: "Features", to: "#" },
-  { name: "Marketplace", to: "#" },
   { name: "Us", to: "/teamSection" },
 ];
 
