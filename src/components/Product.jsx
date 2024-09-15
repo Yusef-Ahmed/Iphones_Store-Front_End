@@ -52,7 +52,7 @@ export function Product() {
           >
             <li>
               <div className="flex items-center">
-                <Link to="/" className="z-0 mr-2 text-sm font-medium text-gray-900">
+                <Link to="/products" className="z-0 mr-2 text-sm font-medium text-gray-900">
                   Products
                 </Link>
                 <svg

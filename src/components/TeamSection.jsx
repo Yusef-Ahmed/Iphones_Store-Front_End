@@ -51,7 +51,7 @@ export function TeamSection() {
           className="grid gap-x-20 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
         >
           {people.map((person) => (
-            <li key={person.name} className="mx-10">
+            <li key={person.name} className="cursor-default z-0 mx-10 transition delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
               <div className="flex items-center gap-x-8">
                 <img
                   alt=""
