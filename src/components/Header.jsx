@@ -26,7 +26,7 @@ export function Header() {
               to={item.to}
               className={
                 ({ isActive }) => (isActive ? "underline underline-offset-8 text-xl" : "text-lg") +
-                " font-semibold transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300"
+                " will-change-transform font-semibold transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300"
               }
             >
               {item.name}
@@ -36,7 +36,7 @@ export function Header() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
             to="auth?mode=login"
-            className="text-lg font-semibold leading-6 transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300"
+            className="will-change-transform text-lg font-semibold leading-6 transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300"
           >
             Log in <span aria-hidden="true">&rarr;</span>
           </Link>
