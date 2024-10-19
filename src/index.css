@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 
-
 body {
   background-color: whitesmoke;
   font-family: cursive;
@@ -61,20 +60,4 @@ body {
   margin: 10px;
   height: 15%;
   color: white;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  background-color: orange;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  margin: 15px;
-}
-
-button:hover {
-  border-color: wheat;
-  background-color: rgb(231, 150, 0);
 }

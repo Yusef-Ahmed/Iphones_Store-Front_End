@@ -4,12 +4,6 @@ import { Radio, RadioGroup } from "@headlessui/react";
 import { Form, Link, useLoaderData, useParams } from "react-router-dom";
 
 const product = {
-  price: "$192",
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-  ],
   sizes: [
     { name: "64", inStock: false },
     { name: "128", inStock: true },
@@ -28,31 +22,32 @@ const product = {
     "Powered by the latest A-series chip, such as the A17 Bionic, the iPhone delivers impressive performance. It ensures fast processing, smooth multitasking, and efficient power usage, making it a reliable choice for demanding tasks.",
 };
 
-const reviews = {average: 4, totalCount: 117 };
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export function Product() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[1]);
-
+  
   const data = useLoaderData();
+  const reviews = { average: data.rating, totalCount: 117 };
 
   return (
-    <div className="bg-white pt-24">
+    <div className="pt-24 bg-white">
       <div className="pt-6">
         {/* Header */}
         <nav aria-label="Breadcrumb">
-          
           <ol
             role="list"
-            className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+            className="flex items-center max-w-2xl px-4 mx-auto space-x-2 sm:px-6 lg:max-w-7xl lg:px-8"
           >
             <li>
               <div className="flex items-center">
-                <Link to="/products" className="z-0 mr-2 text-sm font-medium text-gray-900">
+                <Link
+                  to="/products"
+                  className="z-0 mr-2 text-sm font-medium text-gray-900"
+                >
                   Products
                 </Link>
                 <svg
@@ -61,7 +56,7 @@ export function Product() {
                   height={20}
                   viewBox="0 0 16 20"
                   aria-hidden="true"
-                  className="h-5 w-4 text-gray-300"
+                  className="w-4 h-5 text-gray-300"
                 >
                   <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
                 </svg>
@@ -72,34 +67,34 @@ export function Product() {
                 aria-current="page"
                 className="font-medium text-gray-500 hover:text-gray-600"
               >
-                {data.name.split(",")[0]}
+                {data.name}
               </p>
             </li>
           </ol>
         </nav>
 
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+        <div className="max-w-2xl mx-auto mt-6 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          <div className="hidden overflow-hidden rounded-lg aspect-h-4 aspect-w-3 lg:block">
             <img
               alt="iphone"
               src="https://i.pinimg.com/736x/f9/a3/e5/f9a3e58688ca11f19bc629e5a3da759c.jpg"
-              className="h-full w-full object-fill"
+              className="object-fill w-full h-full"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div className="overflow-hidden rounded-lg aspect-h-2 aspect-w-3">
               <img
                 alt="iphone"
                 src="https://i.pinimg.com/564x/98/99/4c/98994c708294210963cd94e0a264f27f.jpg"
-                className="h-full w-full object-cover object-top"
+                className="object-cover object-top w-full h-full"
               />
             </div>
-            <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+            <div className="overflow-hidden rounded-lg aspect-h-2 aspect-w-3">
               <img
                 alt="iphone"
                 src="https://i.pinimg.com/564x/67/5b/61/675b61683c5b8f6c77741eb61367e1ca.jpg"
-                className="h-full w-full object-cover object-bottom"
+                className="object-cover object-bottom w-full h-full"
               />
             </div>
           </div>
@@ -107,7 +102,7 @@ export function Product() {
             <img
               alt="iphone"
               src="https://i.pinimg.com/736x/04/61/c4/0461c42819a67e04ca639e3346495210.jpg"
-              className="h-full w-full object-cover object-top"
+              className="object-cover object-top w-full h-full"
             />
           </div>
         </div>
@@ -116,20 +111,20 @@ export function Product() {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {data.name.split(",")[0]}
+              {data.name}
             </h1>
           </div>
 
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <h2>Product information</h2>
+            <h1 className="mb-1">Price</h1>
             <p className="text-3xl tracking-tight text-gray-900">
-              {product.price}
+              {data.price}
             </p>
 
             {/* Reviews */}
             <div className="mt-6">
-              <h3>Reviews</h3>
+              <h1 className="mb-1">Reviews</h1>
               <div className="flex items-center">
                 <div className="flex items-center">
                   {[0, 1, 2, 3, 4].map((rating) => (
@@ -151,47 +146,10 @@ export function Product() {
               </div>
             </div>
 
-            <Form className="mt-10">
-              {/* Colors */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-900">Color</h3>
-
-                <fieldset aria-label="Choose a color" className="mt-4">
-                  <RadioGroup
-                    value={selectedColor}
-                    onChange={setSelectedColor}
-                    className="flex items-center space-x-3"
-                  >
-                    {product.colors.map((color) => (
-                      <Radio
-                        key={color.name}
-                        value={color}
-                        aria-label={color.name}
-                        className={classNames(
-                          color.selectedClass,
-                          "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none data-[checked]:ring-2 data-[focus]:data-[checked]:ring data-[focus]:data-[checked]:ring-offset-1"
-                        )}
-                      >
-                        <span
-                          aria-hidden="true"
-                          className={classNames(
-                            color.class,
-                            "h-8 w-8 rounded-full border border-black border-opacity-10"
-                          )}
-                        />
-                      </Radio>
-                    ))}
-                  </RadioGroup>
-                </fieldset>
-              </div>
-
               {/* Sizes */}
               <div className="mt-10">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                  <a className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    Size guide
-                  </a>
+                  <h3 className="text-sm font-medium text-gray-900">Memory</h3>
                 </div>
 
                 <fieldset aria-label="Choose a size" className="mt-4">
@@ -221,13 +179,13 @@ export function Product() {
                         ) : (
                           <span
                             aria-hidden="true"
-                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                            className="absolute border-2 border-gray-200 rounded-md pointer-events-none -inset-px"
                           >
                             <svg
                               stroke="currentColor"
                               viewBox="0 0 100 100"
                               preserveAspectRatio="none"
-                              className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                              className="absolute inset-0 w-full h-full text-gray-200 stroke-2"
                             >
                               <line
                                 x1={0}
@@ -244,11 +202,6 @@ export function Product() {
                   </RadioGroup>
                 </fieldset>
               </div>
-
-              <button className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Add to cart
-              </button>
-            </Form>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -265,7 +218,7 @@ export function Product() {
               <h3 className="underline">Highlights</h3>
 
               <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                <ul role="list" className="pl-4 space-y-2 text-sm list-disc">
                   {product.highlights.map((highlight) => (
                     <li key={highlight} className="text-gray-400">
                       <span className="text-gray-600">{highlight}</span>
@@ -290,12 +243,12 @@ export function Product() {
 }
 
 async function fetchProduct(id) {
-  const response = await fetch("https://api.restful-api.dev/objects/" + id);
-  const resData = await response.json();
-
+  const response = await fetch("http://localhost:5000/product?id=" + id);
   if (!response.ok) console.log("not ok");
 
-  return resData;
+  const resData = await response.json();
+
+  return resData[0];
 }
 
 export function loader({ params }) {
