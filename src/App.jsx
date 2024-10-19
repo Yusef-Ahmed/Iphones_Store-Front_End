@@ -3,7 +3,7 @@ import { RootLayout } from "./pages/RootLayout";
 import { Auth, authAction } from "./pages/Auth";
 import { TeamSection } from "./components/TeamSection";
 import Error from "./pages/Error";
-import { loader as cardsLoader } from "./components/Cards";
+import { loader as cardsLoader, deleteAction } from "./components/Cards";
 import { Product, loader as productLoader } from "./components/Product";
 import { HomeHeader } from "./components/HomeHeader";
 import { Products } from "./components/Products";
@@ -25,8 +25,13 @@ function App() {
         {
           path: "products",
           loader: checkAuthLoader,
+          action: deleteAction,
           children: [
-            { index: true, element: <Products />, loader: cardsLoader },
+            {
+              index: true,
+              element: <Products />,
+              loader: cardsLoader,
+            },
             { path: ":id", element: <Product />, loader: productLoader },
           ],
         },

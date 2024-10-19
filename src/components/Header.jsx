@@ -1,15 +1,17 @@
 import { Form, Link, NavLink, useRouteLoaderData } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { getAuthRole } from "../../util/auth";
 const navigation = [
   { name: "Products", to: "/products" },
-  { name: "Favorites", to: "/null" },
-  { name: "Promotion", to: "/null" },
+  { name: "Favorites", to: "/" },
+  { name: "Promotion", to: "/" },
   { name: "About Us", to: "/teamSection" },
 ];
 
 export function Header() {
   const loggedIn = useRouteLoaderData("root");
-
+  const role = getAuthRole() === "admin";
+  
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
@@ -21,7 +23,7 @@ export function Header() {
             to="/"
             className="-m-1.5 p-1.5 transition delay-0 hover:scale-125 duration-300 will-change-transform"
           >
-            <img alt="logo" src={logo} className="w-auto h-24"/>
+            <img alt="logo" src={logo} className="w-auto h-24" />
           </Link>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
@@ -39,6 +41,19 @@ export function Header() {
               {item.name}
             </NavLink>
           ))}
+          {role && (
+            <NavLink
+              to="/add-product"
+              className={({ isActive }) =>
+                (isActive
+                  ? "underline underline-offset-8 text-xl"
+                  : "text-lg") +
+                " will-change-transform font-semibold transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300 mr-9"
+              }
+            >
+              Add product
+            </NavLink>
+          )}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {loggedIn ? (

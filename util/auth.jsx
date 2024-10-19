@@ -18,6 +18,11 @@ export function getAuthToken() {
   return token;
 }
 
+export function getAuthRole() {
+  const role = localStorage.getItem("role");
+  return role;
+}
+
 export function authLoader() {
   return getAuthToken();
 }

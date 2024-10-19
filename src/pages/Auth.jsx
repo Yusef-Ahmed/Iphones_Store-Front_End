@@ -33,9 +33,11 @@ export async function authAction({ request }) {
   }
 
   const token = resData.token;
+  const role = resData.role;
 
-  // store the token in the local storage
+  // store the token and role in the local storage
   localStorage.setItem('token', token);
+  localStorage.setItem('role', role);
 
   // // store the token's expire date
   // const expiration = new Date();
