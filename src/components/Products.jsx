@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import Slider from "@mui/material/Slider";
 
-const maxValue = 20000;
+const maxValue = 50000;
 
 export function Products() {
   const products = useLoaderData();

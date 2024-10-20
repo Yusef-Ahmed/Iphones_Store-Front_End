@@ -1,6 +1,7 @@
 import { Form, Link, redirect, useSubmit } from "react-router-dom";
 import { getAuthRole, getAuthToken } from "../../util/auth";
-
+import { StarIcon } from "@heroicons/react/20/solid";
+import { logoutAction } from "../pages/LogOut";
 
 export function Cards({ products }) {
   // const products = useLoaderData();
@@ -8,7 +9,7 @@ export function Cards({ products }) {
   const submit = useSubmit();
 
   function handleDelete(id) {
-    submit(null, { method: "delete", action: "?id=" + id});
+    submit(null, { method: "delete", action: "?id=" + id });
   }
 
   return (
@@ -29,16 +30,39 @@ export function Cards({ products }) {
                   className="object-cover object-center w-full h-full bg-opacity-0 group-hover:opacity-75"
                 />
               </div>
-              <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-              <p className="mt-1 text-lg font-medium text-gray-900">
-                {product.price} $
-              </p>
+              <section className="flex items-center justify-between mt-5">
+                <div>
+                  <h3 className="text-sm text-gray-700">{product.name}</h3>
+                  <p className="mt-1 text-lg font-medium text-gray-900">
+                    {product.price} $
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-end">
+                  <div className="flex flex-row">
+                    {[0, 1, 2, 3, 4].map((rating) => (
+                      <StarIcon
+                        key={rating}
+                        aria-hidden="true"
+                        className={
+                          product.rating > rating
+                            ? "text-gray-900 h-5 w-5 flex-shrink-0"
+                            : "text-gray-400 h-5 w-5 flex-shrink-0"
+                        }
+                      />
+                    ))}
+                  </div>
+                  <p className="m-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+                    {product.rating} out of 5
+                  </p>
+                </div>
+              </section>
             </Link>
             {role && (
               <>
-                <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6">
+                <Link to={"/edit/" + product.id} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6">
                   Edit
-                </button>
+                </Link>
                 <button
                   onClick={() => handleDelete(product.id)}
                   className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6"
@@ -84,11 +108,15 @@ export async function deleteAction({ request }) {
     body: new URLSearchParams({ id }),
   });
 
+  if (response.status === 401) {
+    return logoutAction();
+  }
+  
   const resData = await response.json();
 
   if (!response.ok) {
     return resData;
   }
-  
+
   return redirect("/products");
 }

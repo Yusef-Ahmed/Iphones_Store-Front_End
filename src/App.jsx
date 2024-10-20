@@ -9,6 +9,8 @@ import { HomeHeader } from "./components/HomeHeader";
 import { Products } from "./components/Products";
 import { authLoader, checkAuthLoader } from "../util/auth.jsx";
 import { logoutAction } from "./pages/LogOut.jsx";
+import { AddProduct, addProductAction } from "./components/AddProduct.jsx";
+import { EditProduct, editProductAction } from "./components/EditProduct.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -32,8 +34,23 @@ function App() {
               element: <Products />,
               loader: cardsLoader,
             },
-            { path: ":id", element: <Product />, loader: productLoader },
+            {
+              path: ":id",
+              element: <Product />,
+              loader: productLoader,
+            },
           ],
+        },
+        {
+          path: "edit/:id",
+          element: <EditProduct />,
+          action: editProductAction,
+          loader: productLoader,
+        },
+        {
+          path: "add-product",
+          element: <AddProduct />,
+          action: addProductAction,
         },
         { path: "logout", action: logoutAction },
       ],

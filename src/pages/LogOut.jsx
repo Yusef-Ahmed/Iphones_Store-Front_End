@@ -3,7 +3,7 @@ import { getAuthToken } from "../../util/auth";
 
 export async function logoutAction() {
   const token = getAuthToken();
-  const response = await fetch("http://localhost:5000/user/logOut", {
+  await fetch("http://localhost:5000/user/logOut", {
     method: "POST",
     headers: { "Content-type": "application/json", authorization: token },
   });
