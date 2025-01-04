@@ -1,254 +1,244 @@
-import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { Radio, RadioGroup } from "@headlessui/react";
-import { Form, Link, useLoaderData, useParams } from "react-router-dom";
-
-const product = {
-  sizes: [
-    { name: "64", inStock: false },
-    { name: "128", inStock: true },
-    { name: "256", inStock: true },
-    { name: "512", inStock: true },
-  ],
-  description:
-    "The iPhone is a sleek, high-performance smartphone designed and manufactured by Apple Inc. Known for its cutting-edge technology and elegant design, the iPhone combines advanced hardware with intuitive software to deliver a seamless user experience.",
-  highlights: [
-    "Advanced Camera System",
-    "High-Performance Chip",
-    "Elegant Design",
-    "Seamless Integration",
-  ],
-  details:
-    "Powered by the latest A-series chip, such as the A17 Bionic, the iPhone delivers impressive performance. It ensures fast processing, smooth multitasking, and efficient power usage, making it a reliable choice for demanding tasks.",
-};
-
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { Link, useLoaderData } from "react-router-dom";
+import { getAuthToken } from "../../util/auth";
+import { Reviews } from "./Reviews";
+import { useRef } from "react";
 
 export function Product() {
-  const [selectedSize, setSelectedSize] = useState(product.sizes[1]);
-  
   const data = useLoaderData();
-  const reviews = { average: data.rating, totalCount: 117 };
+  const reviewRef = useRef(null);
 
   return (
-    <div className="pt-24 bg-white">
-      <div className="pt-6">
-        {/* Header */}
-        <nav aria-label="Breadcrumb">
-          <ol
-            role="list"
-            className="flex items-center max-w-2xl px-4 mx-auto space-x-2 sm:px-6 lg:max-w-7xl lg:px-8"
-          >
-            <li>
-              <div className="flex items-center">
-                <Link
-                  to="/products"
-                  className="z-0 mr-2 text-sm font-medium text-gray-900"
-                >
-                  Products
-                </Link>
-                <svg
-                  fill="currentColor"
-                  width={16}
-                  height={20}
-                  viewBox="0 0 16 20"
-                  aria-hidden="true"
-                  className="w-4 h-5 text-gray-300"
-                >
-                  <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                </svg>
-              </div>
-            </li>
-            <li className="text-sm">
-              <p
-                aria-current="page"
-                className="font-medium text-gray-500 hover:text-gray-600"
+    <div className="pt-32 bg-white">
+      {/*               Header name               */}
+      <nav aria-label="Breadcrumb">
+        <ol role="list" className="flex items-center px-28 mx-auto space-x-2">
+          <li>
+            <div className="flex items-center">
+              <Link
+                to="/products"
+                className="z-0 mr-2 text-sm font-medium text-gray-900"
               >
-                {data.name}
-              </p>
-            </li>
-          </ol>
-        </nav>
-
-        {/* Image gallery */}
-        <div className="max-w-2xl mx-auto mt-6 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-          <div className="hidden overflow-hidden rounded-lg aspect-h-4 aspect-w-3 lg:block">
-            <img
-              alt="iphone"
-              src="https://i.pinimg.com/736x/f9/a3/e5/f9a3e58688ca11f19bc629e5a3da759c.jpg"
-              className="object-fill w-full h-full"
-            />
-          </div>
-          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-            <div className="overflow-hidden rounded-lg aspect-h-2 aspect-w-3">
-              <img
-                alt="iphone"
-                src="https://i.pinimg.com/564x/98/99/4c/98994c708294210963cd94e0a264f27f.jpg"
-                className="object-cover object-top w-full h-full"
-              />
+                Products
+              </Link>
+              <svg
+                fill="currentColor"
+                width={16}
+                height={20}
+                viewBox="0 0 16 20"
+                aria-hidden="true"
+                className="w-4 h-5 text-gray-300"
+              >
+                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+              </svg>
             </div>
-            <div className="overflow-hidden rounded-lg aspect-h-2 aspect-w-3">
-              <img
-                alt="iphone"
-                src="https://i.pinimg.com/564x/67/5b/61/675b61683c5b8f6c77741eb61367e1ca.jpg"
-                className="object-cover object-bottom w-full h-full"
-              />
-            </div>
-          </div>
-          <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-            <img
-              alt="iphone"
-              src="https://i.pinimg.com/736x/04/61/c4/0461c42819a67e04ca639e3346495210.jpg"
-              className="object-cover object-top w-full h-full"
-            />
-          </div>
-        </div>
-
-        {/* Product info */}
-        <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {data.name}
-            </h1>
-          </div>
-
-          {/* Options */}
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <h1 className="mb-1">Price</h1>
-            <p className="text-3xl tracking-tight text-gray-900">
-              {data.price}
+          </li>
+          <li className="text-sm">
+            <p
+              aria-current="page"
+              className="font-medium text-gray-500 hover:text-gray-600"
+            >
+              {data.ProductCategory}
             </p>
+          </li>
+        </ol>
+      </nav>
 
-            {/* Reviews */}
-            <div className="mt-6">
-              <h1 className="mb-1">Reviews</h1>
-              <div className="flex items-center">
-                <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      aria-hidden="true"
-                      className={
-                        reviews.average > rating
-                          ? "text-gray-900 h-5 w-5 flex-shrink-0"
-                          : "text-gray-200 h-5 w-5 flex-shrink-0"
-                      }
-                    />
-                  ))}
-                </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.totalCount} reviews
-                </a>
-              </div>
-            </div>
-
-              {/* Sizes */}
-              <div className="mt-10">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-gray-900">Memory</h3>
-                </div>
-
-                <fieldset aria-label="Choose a size" className="mt-4">
-                  <RadioGroup
-                    value={selectedSize}
-                    onChange={setSelectedSize}
-                    className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4"
-                  >
-                    {product.sizes.map((size) => (
-                      <Radio
-                        key={size.name}
-                        value={size}
-                        disabled={!size.inStock}
-                        className={classNames(
-                          size.inStock
-                            ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                            : "cursor-not-allowed bg-gray-50 text-gray-200",
-                          "group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1 sm:py-6"
-                        )}
-                      >
-                        <span>{size.name}</span>
-                        {size.inStock ? (
-                          <span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-transparent group-data-[focus]:border group-data-[checked]:border-indigo-500"
-                          />
-                        ) : (
-                          <span
-                            aria-hidden="true"
-                            className="absolute border-2 border-gray-200 rounded-md pointer-events-none -inset-px"
-                          >
-                            <svg
-                              stroke="currentColor"
-                              viewBox="0 0 100 100"
-                              preserveAspectRatio="none"
-                              className="absolute inset-0 w-full h-full text-gray-200 stroke-2"
-                            >
-                              <line
-                                x1={0}
-                                x2={100}
-                                y1={100}
-                                y2={0}
-                                vectorEffect="non-scaling-stroke"
-                              />
-                            </svg>
-                          </span>
-                        )}
-                      </Radio>
-                    ))}
-                  </RadioGroup>
-                </fieldset>
-              </div>
+      {/*               Product info               */}
+      <div className="flex gap-x-16 px-2 py-10">
+        {/*               Product image               */}
+        <div className="w-1/3 flex justify-center items-start">
+          <img
+            alt={data.ProductTitle}
+            src={data.ProductImage}
+            className={
+              "hover:scale-125 transition-all mx-3 p-3 sticky top-1/4 w-full max-h-96 object-contain"
+            }
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                "https://i.pinimg.com/736x/fa/28/83/fa2883910c05537c886c8950c0c4d325.jpg";
+            }}
+          />
+        </div>
+        <div className="w-2/3">
+          {/*               Product title               */}
+          <h1 className="font-bold tracking-tight text-gray-900 text-3xl">
+            {data.ProductTitle}
+          </h1>
+          {/*               Under Title               */}
+          <div className="flex gap-10">
+            <p className="text-sm text-gray-500 mt-1">
+              Brand: {data.ProductBrand}
+            </p>
+            <p className="text-sm text-gray-500 mt-1">
+              Marketplace: {data.Marketplace}
+            </p>
           </div>
 
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
-            <div>
-              <h3 className="underline">Description</h3>
-
-              <div className="my-4">
-                <p className="text-base text-gray-900">{product.description}</p>
-              </div>
+          <div className="flex mt-10">
+            {/*               ProductSpecifications               */}
+            <div className="w-3/5 border-r-2">
+              <h1 className="mb-4 font-semibold">Specifications</h1>
+              <ul className="space-y-3 text-left text-gray-600 px-4">
+                {data.ProductSpecifications.map((specification, index) => {
+                  let text = specification.split(":");
+                  return (
+                    <section key={index} className="flex space-x-3">
+                      <svg
+                        className="flex-shrink-0 w-4 h-4 text-green-500 dark:text-green-400 mt-1"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 16 12"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M1 5.917 5.724 10.5 15 1.5"
+                        />
+                      </svg>
+                      <li className="cursor-default hover:text-gray-900 flex items-center space-x-3 rtl:space-x-reverse gap-1">
+                        <p>
+                          {text.length == 2 ? <b>{text[0] + ": "}</b> : text}
+                          {text.length == 2 ? text[1] : ""}
+                        </p>
+                      </li>
+                    </section>
+                  );
+                })}
+              </ul>
             </div>
+            {/*               Details               */}
+            <div className="w-2/5 ml-2">
+              <h1 className="ml-2 font-semibold">Details</h1>
+              <div className="flex flex-col items-center justify-between my-10 h-fit gap-20 sticky top-1/4">
+                {/*               Product price               */}
+                <div className="flex items-center">
+                  <p className="text-3xl tracking-tight text-gray-900">
+                    <span className="text-sm float-left">EGP</span>
+                    {data.ProductPrice}
+                    {data.ProductOldPrice && (
+                      <span className="text-red-500 ml-5 text-3xl">
+                        -
+                        {Math.round(
+                          100 - (data.ProductPrice / data.ProductOldPrice) * 100
+                        )}
+                        %
+                      </span>
+                    )}
+                    {data.ProductOldPrice && (
+                      <p className="text-sm text-gray-500 ml-6">
+                        Instead of <del>{data.ProductOldPrice}</del>
+                        <span className="text-sm"> EGP</span>
+                      </p>
+                    )}
+                  </p>
+                </div>
 
-            <div className="mt-10">
-              <h3 className="underline">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="pl-4 space-y-2 text-sm list-disc">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h2 className="underline">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
+                {/*               Out of 5               */}
+                <div className="flex items-center">
+                  <div className="flex flex-col text-center">
+                    <p>{data.ProductRatings} out of 5</p>
+                    <div className="flex items-center">
+                      {[0, 1, 2, 3, 4].map((rating) => (
+                        <StarIcon
+                          key={rating}
+                          aria-hidden="true"
+                          className={
+                            Math.floor(data.ProductRatings) > rating
+                              ? "text-gray-900 h-6 w-6 flex-shrink-0"
+                              : "text-gray-200 h-6 w-6 flex-shrink-0"
+                          }
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/*               Reviews               */}
+                <button
+                  onClick={() =>
+                    reviewRef.current.scrollIntoView({
+                      behavior: "smooth",
+                    })
+                  }
+                  className="text-xl font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  {data.reviews.length} Reviews
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/*               Bottom section               */}
+      <div className="mt-8">
+        {/*               Description               */}
+        <div className="mx-8 border-y-2 py-6">
+          <h1 className="font-semibold mb-2">Description</h1>
+          <p className=" text-gray-900">{data.ProductDescription}</p>
+        </div>
+
+        {/*               Product Link               */}
+        <div className="mx-8 border-b-2 py-6">
+          <h1 className="font-semibold mb-2">Product link</h1>
+          <a
+            href={data.ProductLink}
+            target="_blank"
+            className="underline text-blue-400"
+          >
+            {data.ProductLink}
+          </a>
+        </div>
+
+        {/*               Seller Name               */}
+        <div className="mx-8 border-b-2 py-6">
+          <h1 className="font-semibold mb-2">
+            Seller name : {data.SellerName}
+          </h1>
+          <a
+            href={data.SellerUrl}
+            target="_blank"
+            className="underline text-blue-400"
+          >
+            {data.SellerUrl}
+          </a>
+        </div>
+      </div>
+      {/*               Reviews               */}
+      <p ref={reviewRef}></p>
+      <Reviews reviews={data.reviews} ProductRatings={data.ProductRatings} />
+      <button
+        onClick={() => window.scroll({
+          top: 0,
+          behavior: "smooth",
+        })}
+        className="fixed bottom-5 right-5 bg-blue-500 text-white p-2 rounded-lg"
+      >
+        Jump to top
+      </button>
     </div>
   );
 }
 
 async function fetchProduct(id) {
-  const response = await fetch("http://localhost:5000/product?id=" + id);
-  if (!response.ok) console.log("not ok");
+  const response = await fetch(
+    "http://localhost:5000/product/getById?id=" + id,
+    {
+      headers: {
+        Authorization: getAuthToken(),
+      },
+    }
+  );
 
   const resData = await response.json();
 
-  return resData[0];
+  if (!response.ok) console.log(resData);
+
+  return resData;
 }
 
 export function loader({ params }) {

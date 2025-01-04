@@ -1,26 +1,19 @@
 import { redirect } from "react-router-dom";
 
-// export function getTokenDuration() {
-//   const storedExpiration = localStorage.getItem("expiration");
-//   const expiration = new Date(storedExpiration);
-//   const current = new Date();
+export function getTokenDuration() {
+  const storedExpiration = localStorage.getItem("expiration");
+  const expiration = new Date(storedExpiration);
+  const current = new Date();
 
-//   return expiration - current;
-// }
+  return expiration - current;
+}
 
 export function getAuthToken() {
   const token = localStorage.getItem("token");
 
-  if (!token) return null;
-
-  // if (getTokenDuration() < 0) return "EXPIRED";
+  if (!token || getTokenDuration() < 0) return null;
 
   return token;
-}
-
-export function getAuthRole() {
-  const role = localStorage.getItem("role");
-  return role;
 }
 
 export function authLoader() {
@@ -30,7 +23,16 @@ export function authLoader() {
 export function checkAuthLoader() {
   const token = getAuthToken();
 
-  if (!token) return redirect("/auth");
+  if (!token) {
+    clear();
+    return redirect("/auth");
+  }
 
   return null;
+}
+
+function clear() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("role");
+  localStorage.removeItem("expiration");
 }

@@ -17,7 +17,7 @@ export async function logoutAction() {
 
   localStorage.removeItem("token");
   localStorage.removeItem("role");
-  // localStorage.removeItem("expiration");
+  localStorage.removeItem("expiration");
 
   return redirect("/");
 }

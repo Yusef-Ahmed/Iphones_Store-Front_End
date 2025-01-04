@@ -39,10 +39,10 @@ export async function authAction({ request }) {
   localStorage.setItem('token', token);
   localStorage.setItem('role', role);
 
-  // // store the token's expire date
-  // const expiration = new Date();
-  // expiration.setHours(expiration.getHours() + 1);
-  // localStorage.setItem('expiration', expiration.toISOString());
+  // store the token's expire date
+  const expiration = new Date();
+  expiration.setHours(expiration.getHours() + 24);
+  localStorage.setItem('expiration', expiration.toISOString());
 
   return redirect('/products');
 }

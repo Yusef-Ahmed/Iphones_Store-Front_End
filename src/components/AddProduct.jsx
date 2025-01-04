@@ -2,8 +2,9 @@ import { Form, redirect, useActionData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 
 export function AddProduct() {
-  const errors = useActionData();
-
+  let errors = useActionData();
+  if (typeof errors == "string") errors = {message: errors};
+  
   return (
     <>
       <div className="relative flex flex-col justify-center flex-1 min-h-full px-6 py-12 mt-16 lg:px-8">
@@ -63,6 +64,7 @@ export function AddProduct() {
                   required
                   autoComplete="off"
                   step="0.1"
+                  max={5}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>

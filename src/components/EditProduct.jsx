@@ -2,8 +2,9 @@ import { Form, redirect, useActionData, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 
 export function EditProduct() {
-  const errors = useActionData();
+  let errors = useActionData();
   const product = useLoaderData();
+  if (typeof errors == "string") errors = {message: errors};
 
   return (
     <>

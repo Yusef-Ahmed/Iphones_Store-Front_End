@@ -1,79 +1,69 @@
-import { Form, Link, redirect, useSubmit } from "react-router-dom";
-import { getAuthRole, getAuthToken } from "../../util/auth";
+import { Link } from "react-router-dom";
+import { getAuthToken } from "../../util/auth";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { logoutAction } from "../pages/LogOut";
 
 export function Cards({ products }) {
-  // const products = useLoaderData();
-  const role = getAuthRole() === "admin";
-  const submit = useSubmit();
-
-  function handleDelete(id) {
-    submit(null, { method: "delete", action: "?id=" + id });
-  }
-
   return (
     <div className="px-4 py-12 mx-8">
-      <h2 className="sr-only">Products</h2>
-
       <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         {products.map((product) => (
-          <div key={product.id} className="flex flex-col">
+          <div key={product.ProductID} className="flex flex-col">
             <Link
-              to={product.id.toString()}
+              to={product.ProductID}
               className="transition duration-300 will-change-transform group delay-0 hover:-translate-y-1 hover:scale-110"
             >
+              {/*               Product image               */}
               <div className="w-full overflow-hidden bg-gray-200 rounded-lg aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
                 <img
-                  alt="none"
-                  src="https://i.pinimg.com/564x/24/ab/a7/24aba79b4963af6c0d1bfeb3ffa8d76a.jpg"
-                  className="object-cover object-center w-full h-full bg-opacity-0 group-hover:opacity-75"
+                  alt="product image"
+                  src={product.ProductImage}
+                  className="object-center w-full h-full bg-opacity-0 group-hover:opacity-75"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = 'https://i.pinimg.com/736x/fa/28/83/fa2883910c05537c886c8950c0c4d325.jpg';
+                  }}
                 />
               </div>
-              <section className="flex items-center justify-between mt-5">
-                <div>
-                  <h3 className="text-sm text-gray-700">{product.name}</h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {product.price} $
-                  </p>
-                </div>
 
-                <div className="flex flex-col items-end">
-                  <div className="flex flex-row">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        aria-hidden="true"
-                        className={
-                          product.rating > rating
-                            ? "text-gray-900 h-5 w-5 flex-shrink-0"
-                            : "text-gray-400 h-5 w-5 flex-shrink-0"
-                        }
-                      />
-                    ))}
-                  </div>
-                  <p className="m-1 text-sm font-medium text-gray-500 dark:text-gray-400">
-                    {product.rating} out of 5
+              <section className="flex flex-col justify-between mt-5 px-2">
+                {/*               Title               */}
+                <h3 className="text-sm text-gray-700 overflow-hidden h-10"> 
+                  {product.ProductTitle}
+                </h3>
+
+                <div className="flex justify-between mt-5">
+                  {/*               Price               */}
+                  <p className="text-lg font-medium text-gray-900">
+                    {product.ProductPrice} $
                   </p>
+
+                  {/*               Rating               */}
+                  <div className="flex flex-col items-end">
+                    <div className="flex flex-row">
+                      {[0, 1, 2, 3, 4].map((rating) => (
+                        <StarIcon
+                          key={rating}
+                          aria-hidden="true"
+                          className={
+                            Math.floor(product.ProductRatings) > rating
+                              ? "text-gray-900 h-5 w-5 flex-shrink-0"
+                              : "text-gray-400 h-5 w-5 flex-shrink-0"
+                          }
+                        />
+                      ))}
+                    </div>
+                    <p className="m-1 text-sm font-medium text-gray-500 dark:text-gray-400">
+                      {product.ProductRatings} out of 5
+                    </p>
+                  </div>
                 </div>
               </section>
             </Link>
-            {role && (
-              <>
-                <Link to={"/edit/" + product.id} className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6">
-                  Edit
-                </Link>
-                <button
-                  onClick={() => handleDelete(product.id)}
-                  className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-6"
-                >
-                  Delete
-                </button>
-              </>
-            )}
           </div>
         ))}
       </div>
+
+      {/*               No products returned               */}
       {!products.length && (
         <h1 className="flex justify-center text-4xl">No results found</h1>
       )}
@@ -81,42 +71,24 @@ export function Cards({ products }) {
   );
 }
 
-export async function fetchCardsLoader() {
-  const response = await fetch("http://localhost:5000/product/");
+export async function fetchCardsLoader(pageNumber) {
+  const response = await fetch(
+    "http://localhost:5000/product?pageNumber=" + pageNumber,
+    {
+      headers: {
+        Authorization: getAuthToken(),
+      },
+    }
+  );
   const resData = await response.json();
 
-  if (!response.ok) console.log("not ok");
+  if (!response.ok) console.log("fetchCardsLoader not ok");
 
   return resData;
 }
 
-export function loader() {
-  return fetchCardsLoader();
-}
-
-export async function deleteAction({ request }) {
+export function loader({ request }) {
   const searchParams = new URL(request.url).searchParams;
-  const id = searchParams.get("id");
-  const token = getAuthToken();
-
-  const response = await fetch("http://localhost:5000/product/", {
-    method: "delete",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      authorization: token,
-    },
-    body: new URLSearchParams({ id }),
-  });
-
-  if (response.status === 401) {
-    return logoutAction();
-  }
-  
-  const resData = await response.json();
-
-  if (!response.ok) {
-    return resData;
-  }
-
-  return redirect("/products");
+  const pageNumber = searchParams.get("pageNumber");
+  return fetchCardsLoader(pageNumber);
 }

@@ -1,6 +1,5 @@
 import { Form, Link, NavLink, useRouteLoaderData } from "react-router-dom";
 import logo from "../assets/logo.png";
-import { getAuthRole } from "../../util/auth";
 
 const navigation = [
   { name: "Products", to: "/products" },
@@ -11,7 +10,6 @@ const navigation = [
 
 export function Header() {
   const loggedIn = useRouteLoaderData("root");
-  const role = getAuthRole() === "admin";
   
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -42,19 +40,7 @@ export function Header() {
               {item.name}
             </NavLink>
           ))}
-          {role && (
-            <NavLink
-              to="/add-product"
-              className={({ isActive }) =>
-                (isActive
-                  ? "underline underline-offset-8 text-xl"
-                  : "text-lg") +
-                " will-change-transform font-semibold transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300 mr-9"
-              }
-            >
-              Add product
-            </NavLink>
-          )}
+          
         </div>
         <div className="flex justify-end flex-1">
           {loggedIn ? (
