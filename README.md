@@ -1,3 +1,5 @@
-# Graduation_Project-Front_End
-Take a look 
-https://gp-frontend-b20bf.web.app/
+# Iphones store with React JS and Tailwind CSS
+
+### Copyright ⓒ[Youssef Ahmed](https://github.com/Yusef-Ahmed)
+
+## [Back end](https://github.com/Seif302010/product-manager)
