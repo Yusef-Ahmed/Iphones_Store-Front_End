@@ -3,13 +3,23 @@ import { Link, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import { Reviews } from "./Reviews";
 import { useRef } from "react";
+import CircleChart from "./CircleChart";
+import ApexChart from "./ApexChart";
+import { Cards } from "./Cards";
 
 export function Product() {
   const data = useLoaderData();
   const reviewRef = useRef(null);
+  const size = data.reviews.length;
+  const series = {"positive": 0, "negative": 0};
+  const rates = [0, 0, 0, 0, 0];
+  data.reviews.forEach((review) => {
+    rates[review.rating - 1]++;
+    series[review.sentiment]++;
+  });
 
   return (
-    <div className="pt-32 bg-white">
+    <div className="pt-32">
       {/*               Header name               */}
       <nav aria-label="Breadcrumb">
         <ol role="list" className="flex items-center px-28 mx-auto space-x-2">
@@ -94,9 +104,9 @@ export function Product() {
                       >
                         <path
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M1 5.917 5.724 10.5 15 1.5"
                         />
                       </svg>
@@ -117,7 +127,7 @@ export function Product() {
               <div className="flex flex-col items-center justify-between my-10 h-fit gap-20 sticky top-1/4">
                 {/*               Product price               */}
                 <div className="flex items-center">
-                  <p className="text-3xl tracking-tight text-gray-900">
+                  <div className="text-3xl tracking-tight text-gray-900">
                     <span className="text-sm float-left">EGP</span>
                     {data.ProductPrice}
                     {data.ProductOldPrice && (
@@ -135,7 +145,7 @@ export function Product() {
                         <span className="text-sm"> EGP</span>
                       </p>
                     )}
-                  </p>
+                  </div>
                 </div>
 
                 {/*               Out of 5               */}
@@ -174,7 +184,6 @@ export function Product() {
         </div>
       </div>
 
-      {/*               Bottom section               */}
       <div className="mt-8">
         {/*               Description               */}
         <div className="mx-8 border-y-2 py-6">
@@ -208,14 +217,35 @@ export function Product() {
           </a>
         </div>
       </div>
+      {/*               Charts               */}
+      <div className="flex justify-evenly border-b-2 my-4 items-center">
+        <ApexChart positive={series["positive"]} negative={series["negative"]} />
+        <CircleChart total={size} rates={rates} />
+      </div>
+
+      {/*               MAtched Products               */}
+      {data.matchedProducts.length > 0 && (
+        <div className="mx-8 border-b-2 py-6">
+          <h1 className="font-semibold">Matched Products</h1>
+          <Cards products={data.matchedProducts} />
+        </div>
+      )}
+
       {/*               Reviews               */}
       <p ref={reviewRef}></p>
-      <Reviews reviews={data.reviews} ProductRatings={data.ProductRatings} />
+      <Reviews
+        size={size}
+        reviews={data.reviews}
+        ProductRatings={data.ProductRatings}
+        rates={rates}
+      />
       <button
-        onClick={() => window.scroll({
-          top: 0,
-          behavior: "smooth",
-        })}
+        onClick={() =>
+          window.scroll({
+            top: 0,
+            behavior: "smooth",
+          })
+        }
         className="fixed bottom-5 right-5 bg-blue-500 text-white p-2 rounded-lg"
       >
         Jump to top

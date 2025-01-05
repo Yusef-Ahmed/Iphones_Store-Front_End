@@ -1,5 +1,5 @@
 import { Form, Link, NavLink, useRouteLoaderData } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/NewLogo.png";
 
 const navigation = [
   { name: "Products", to: "/products" },
@@ -22,7 +22,7 @@ export function Header() {
             to="/"
             className="-m-1.5 p-1.5 transition delay-0 hover:scale-125 duration-300 will-change-transform"
           >
-            <img alt="logo" src={logo} className="w-auto h-24" />
+            <img alt="logo" src={logo} className="w-auto h-28 mt-2" />
           </Link>
         </div>
         <div className="flex gap-x-12">

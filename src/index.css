@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   background-color: whitesmoke;
   font-family: cursive;
-  color: #111827;
+  color: #e2e8f0;
+}
+
+#shadow {
+  text-shadow: 1px 1px black;
 }
 
 .form {

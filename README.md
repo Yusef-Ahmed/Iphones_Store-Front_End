@@ -1,4 +1,4 @@
-# Iphones store with React JS and Tailwind CSS
+# Tech store with React JS and Tailwind CSS
 
 ### Copyright ⓒ[Youssef Ahmed](https://github.com/Yusef-Ahmed)
 

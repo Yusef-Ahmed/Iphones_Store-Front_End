@@ -1,5 +1,5 @@
 import { Form, Link, useActionData, useSearchParams } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/NewLogo.png";
 
 export function AuthForm() {
   let authData = useActionData();

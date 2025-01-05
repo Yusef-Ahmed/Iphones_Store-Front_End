@@ -9,7 +9,7 @@ export function Cards({ products }) {
         {products.map((product) => (
           <div key={product.ProductID} className="flex flex-col">
             <Link
-              to={product.ProductID}
+              to={'/products/' +product.ProductID}
               className="transition duration-300 will-change-transform group delay-0 hover:-translate-y-1 hover:scale-110"
             >
               {/*               Product image               */}
