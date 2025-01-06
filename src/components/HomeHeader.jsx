@@ -25,7 +25,7 @@ export function HomeHeader() {
     <>
       <div>
         <VantaHalo />
-        <div className="flex justify-between pt-48 mx-20">
+        <div className="flex justify-between pt-20 mx-20">
           <div className="w-4/6">
             <h1
               id="shadow"

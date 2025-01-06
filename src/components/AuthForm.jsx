@@ -20,7 +20,7 @@ export function AuthForm() {
               className="w-auto h-32 mx-auto transition duration-300 delay-150 hover:-translate-y-1 hover:scale-110"
             />
           </Link>
-          <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900">
+          <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center">
             {!signUp ? "Sign in to your account" : "Sign up now for free!"}
           </h2>
         </div>
@@ -46,7 +46,7 @@ export function AuthForm() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Name
                 </label>
@@ -65,7 +65,7 @@ export function AuthForm() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6"
               >
                 Email address
               </label>
@@ -85,7 +85,7 @@ export function AuthForm() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6"
                 >
                   Password
                 </label>

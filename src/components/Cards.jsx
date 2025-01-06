@@ -2,38 +2,40 @@ import { Link } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import { StarIcon } from "@heroicons/react/20/solid";
 
+
 export function Cards({ products }) {
   return (
     <div className="px-4 py-12 mx-8">
-      <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-10">
         {products.map((product) => (
           <div key={product.ProductID} className="flex flex-col">
             <Link
-              to={'/products/' +product.ProductID}
+              to={"/products/" + product.ProductID}
               className="transition duration-300 will-change-transform group delay-0 hover:-translate-y-1 hover:scale-110"
             >
               {/*               Product image               */}
-              <div className="w-full overflow-hidden bg-gray-200 rounded-lg aspect-h-1 aspect-w-1 xl:aspect-h-8 xl:aspect-w-7">
+              <div className="w-full h-2 overflow-hidden rounded-lg aspect-h-1 aspect-w-1">
                 <img
                   alt="product image"
                   src={product.ProductImage}
                   className="object-center w-full h-full bg-opacity-0 group-hover:opacity-75"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = 'https://i.pinimg.com/736x/fa/28/83/fa2883910c05537c886c8950c0c4d325.jpg';
+                    e.target.src =
+                      "https://i.pinimg.com/736x/fa/28/83/fa2883910c05537c886c8950c0c4d325.jpg";
                   }}
                 />
               </div>
 
               <section className="flex flex-col justify-between mt-5 px-2">
                 {/*               Title               */}
-                <h3 className="text-sm text-gray-700 overflow-hidden h-10"> 
+                <h3 className="text-sm overflow-hidden h-10">
                   {product.ProductTitle}
                 </h3>
 
                 <div className="flex justify-between mt-5">
                   {/*               Price               */}
-                  <p className="text-lg font-medium text-gray-900">
+                  <p className="text-lg font-medium">
                     {product.ProductPrice} $
                   </p>
 
@@ -46,8 +48,8 @@ export function Cards({ products }) {
                           aria-hidden="true"
                           className={
                             Math.floor(product.ProductRatings) > rating
-                              ? "text-gray-900 h-5 w-5 flex-shrink-0"
-                              : "text-gray-400 h-5 w-5 flex-shrink-0"
+                              ? "text-slate-200 h-5 w-5 flex-shrink-0"
+                              : "text-gray-600 h-5 w-5 flex-shrink-0"
                           }
                         />
                       ))}
@@ -71,15 +73,12 @@ export function Cards({ products }) {
   );
 }
 
-export async function fetchCardsLoader(pageNumber) {
-  const response = await fetch(
-    "http://localhost:5000/product?pageNumber=" + pageNumber,
-    {
-      headers: {
-        Authorization: getAuthToken(),
-      },
-    }
-  );
+export async function fetchCardsLoader(params) {
+  const response = await fetch("http://localhost:5000/product?" + params, {
+    headers: {
+      Authorization: getAuthToken(),
+    },
+  });
   const resData = await response.json();
 
   if (!response.ok) console.log("fetchCardsLoader not ok");
@@ -89,6 +88,8 @@ export async function fetchCardsLoader(pageNumber) {
 
 export function loader({ request }) {
   const searchParams = new URL(request.url).searchParams;
-  const pageNumber = searchParams.get("pageNumber");
-  return fetchCardsLoader(pageNumber);
+  let params = "";
+  searchParams.forEach((value, key) => (params += key + "=" + value + "&"));
+  params = params.substring(0, params.length - 1);
+  return fetchCardsLoader(params);
 }

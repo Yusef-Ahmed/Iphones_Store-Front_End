@@ -12,7 +12,7 @@ export function Header() {
   const loggedIn = useRouteLoaderData("root");
   
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className=" inset-x-0 top-0 z-50">
       <nav
         aria-label="Global"
         className="flex items-center justify-between p-1 lg:px-8"

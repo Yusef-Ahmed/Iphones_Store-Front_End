@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: whitesmoke;
+  background-color: #1A1A1D;
   font-family: cursive;
   color: #e2e8f0;
 }

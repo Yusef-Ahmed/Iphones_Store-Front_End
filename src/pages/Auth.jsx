@@ -20,11 +20,6 @@ export async function authAction({ request }) {
     headers: {"Content-type": "application/json"},
     body: JSON.stringify(authData),
   });
-
-  // console.log(response.ok);
-  // if (response.status === 404) {
-  //   return response;
-  // }
   
   const resData = await response.json();
   
