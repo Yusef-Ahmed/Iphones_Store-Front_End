@@ -29,7 +29,10 @@ const CircleChart = ({ rates, total }) => {
               show: true,
             },
             value: {
-              show: true,
+              show: false,
+            },
+            style: {
+              colors: ["#e2e8f0"],
             },
           },
           barLabels: {
@@ -64,8 +67,8 @@ const CircleChart = ({ rates, total }) => {
   });
 
   return (
-    <div className="chart-container bg-white rounded-lg p-4">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
+    <div className="chart-containe rounded-lg p-4">
+      <h2 className="text-xl font-semibold mb-4 text-center">
         Ratings Breakdown
       </h2>
       <div id="chart">

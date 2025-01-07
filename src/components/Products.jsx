@@ -73,35 +73,35 @@ export function Products() {
               </div>
             </div>
             {/* Rating */}
-            <div className="w-1/6">
+            <div className="w-1/4">
               <p className="mb-5">Rating</p>
               <div className="flex gap-5">
                 <div className="w-full">
                   <select
                     name="minRating"
-                    class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="text-center block appearance-none w-full border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
                   >
-                    <option value="">All</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
+                    <option value="">Min Rating</option>
+                    <option value={1}>1 star</option>
+                    <option value={2}>2 stars</option>
+                    <option value={3}>3 stars</option>
+                    <option value={4}>4 stars</option>
+                    <option value={5}>5 stars</option>
                   </select>
                 </div>
                 <div className="w-full">
                   <select
                     name="maxRating"
-                    class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    class="text-center block appearance-none w-full border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
                   >
-                    <option value="">All</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
-                    <option value={3}>3</option>
-                    <option value={4}>4</option>
-                    <option value={5}>5</option>
+                    <option value="">Max Rating</option>
+                    <option value={1}>1 star</option>
+                    <option value={2}>2 stars</option>
+                    <option value={3}>3 stars</option>
+                    <option value={4}>4 stars</option>
+                    <option value={5}>5 stars</option>
                   </select>
                 </div>
               </div>

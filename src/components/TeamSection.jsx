@@ -39,13 +39,13 @@ const people = [
 
 export function TeamSection() {
   return (
-    <div className="py-24 mt-20 sm:py-32">
+    <div className="py-28">
       <div className="grid px-6 mx-auto max-w-7xl gap-x-8 gap-y-20 lg:px-8 xl:grid-cols-3">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h2 className="text-5xl font-bold tracking-tight">
             Meet our Team
           </h2>
-          <p className="mt-6 ml-0 text-lg leading-8 text-gray-600">
+          <p className="mt-6 ml-0 text-lg leading-8 text-slate-400">
             This is the team who worked so hard to get that website as you can
             see now.
           </p>
@@ -57,7 +57,7 @@ export function TeamSection() {
           {people.map((person) => (
             <li
               key={person.name}
-              className="z-0 mx-10 transition duration-300 delay-150 cursor-default will-change-transform hover:-translate-y-1 hover:scale-110"
+              className="z-0 mx-10 transition duration-300 delay-150 cursor-default will-change-transform hover:-translate-y-3 hover:scale-150"
             >
               <div className="flex items-center gap-x-8">
                 <img
@@ -66,7 +66,7 @@ export function TeamSection() {
                   className="w-16 h-16 rounded-full"
                 />
                 <div>
-                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                  <h3 className="text-base font-semibold leading-7 tracking-tight text-slate-300">
                     {person.name}
                   </h3>
                   <p className="ml-0 text-sm font-semibold leading-6 text-indigo-600">

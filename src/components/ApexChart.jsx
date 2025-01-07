@@ -16,7 +16,6 @@ const ApexChart = ({ positive, negative }) => {
       chart: {
         width: 380,
         type: "pie",
-        background: "#fff",
         toolbar: {
           show: false,
         },
@@ -24,6 +23,9 @@ const ApexChart = ({ positive, negative }) => {
       labels: ["Positive", "Negative"],
       colors: ["#00E396", "#FF4560"],
       legend: {
+        labels: {
+          colors: "#e2e8f0",
+        },
         position: "bottom",
         horizontalAlign: "center",
         fontSize: "16px",
@@ -52,8 +54,8 @@ const ApexChart = ({ positive, negative }) => {
   });
 
   return (
-    <div className="chart-container bg-white rounded-lg p-4">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
+    <div className="chart-container rounded-lg p-4">
+      <h2 className="text-xl font-semibold mb-4 text-center">
         Reviews Distribution
       </h2>
       <div id="chart">

@@ -1,15 +1,21 @@
 import { StarIcon } from "@heroicons/react/20/solid";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export function Reviews({ reviews, ProductRatings, rates, size }) {
   const reviewRef = useRef(null);
+  const [reviewsCount, setReviewsCount] = useState(5);
+  const newReviews = reviews.filter((_element, index) => index < reviewsCount);
+
+  function handleCount() {
+    setReviewsCount((prev) => prev + 5);
+  }
 
   return (
-    <section className="bg-white py-8 antialiased">
+    <section className="py-8 antialiased">
       <div className="mx-10 px-4 2xl:px-0">
         {/* Header */}
         <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-semibold text-gray-900">Reviews</h2>
+          <h2 className="text-2xl font-semibold">Reviews</h2>
 
           <div className="mt-2 flex items-center gap-2 sm:mt-0">
             <div className="flex items-center">
@@ -22,15 +28,15 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
                       aria-hidden="true"
                       className={
                         Math.floor(ProductRatings) > rating
-                          ? "text-gray-900 h-6 w-6 flex-shrink-0"
-                          : "text-gray-200 h-6 w-6 flex-shrink-0"
+                          ? "text-slate-200 h-6 w-6 flex-shrink-0"
+                          : "text-gray-600 h-6 w-6 flex-shrink-0"
                       }
                     />
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-sm font-medium leading-none text-gray-500">
+            <p className="text-sm font-medium leading-none text-slate-400">
               ({ProductRatings})
             </p>
             <button
@@ -39,7 +45,7 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
                   behavior: "smooth",
                 })
               }
-              className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline"
+              className="text-sm font-medium leading-none text-slate-400 underline hover:no-underline"
             >
               {" "}
               {size} Reviews{" "}
@@ -49,18 +55,18 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
         {/* Each rate */}
         <div className="my-6 gap-8 sm:flex sm:items-start md:my-8">
           <div className="shrink-0 space-y-4">
-            <p className="text-2xl font-semibold leading-none text-gray-900">
+            <p className="text-2xl font-semibold leading-none">
               {ProductRatings} out of 5
             </p>
           </div>
           <div className="mt-6 min-w-0 flex-1 space-y-3 sm:mt-0">
             {[5, 4, 3, 2, 1].map((rating) => (
               <div className="flex items-center gap-2" key={rating}>
-                <p className="w-2 shrink-0 text-start text-sm font-medium leading-none text-gray-900">
+                <p className="w-2 shrink-0 text-start text-sm font-medium leading-none">
                   {rating}
                 </p>
                 <svg
-                  className="h-4 w-4 shrink-0 text-gray-900"
+                  className="h-4 w-4 shrink-0"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -70,9 +76,9 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
                 >
                   <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
                 </svg>
-                <div className="h-1.5 w-80 rounded-full bg-gray-200">
+                <div className="h-1.5 w-80 rounded-full bg-slate-600">
                   <div
-                    className={"h-1.5 rounded-full bg-gray-900"}
+                    className={"h-1.5 rounded-full bg-slate-200"}
                     style={{
                       width: Math.round((rates[rating - 1] / size) * 320) || 0,
                     }}
@@ -93,10 +99,12 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
             ))}
           </div>
         </div>
-        
+
+          {!reviews.length && <h1 className="flex justify-center text-5xl my-48">No reviews provided</h1>}
+
         {/* Reviews */}
-        <div ref={reviewRef} className="mt-6 divide-y divide-gray-200 mx-10">
-          {reviews.map((review, index) => (
+        <div ref={reviewRef} className="mt-6 divide-y divide-slate-400 mx-10">
+          {newReviews.map((review, index) => (
             <div key={index} className="gap-3 py-6 sm:flex sm:items-start">
               <div className="shrink-0 space-y-2 sm:w-48 md:w-72">
                 <div className="flex items-center">
@@ -106,8 +114,8 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
                       aria-hidden="true"
                       className={
                         Math.floor(review.rating) > rating
-                          ? "text-gray-900 h-4 w-4 flex-shrink-0"
-                          : "text-gray-200 h-4 w-4 flex-shrink-0"
+                          ? "text-slate-200 h-6 w-6 flex-shrink-0"
+                          : "text-gray-600 h-6 w-6 flex-shrink-0"
                       }
                     />
                   ))}
@@ -129,31 +137,31 @@ export function Reviews({ reviews, ProductRatings, rates, size }) {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-slate-300">
                     Verified purchase
                   </p>
                 </div>
               </div>
 
               <div className="mt-4 min-w-0 flex-1 space-y-4 sm:mt-0">
-                <p className="text-base font-normal text-gray-600 hover:text-gray-900">
+                <p className="text-lg font-medium text-slate-300 hover:text-slate-200">
                   {review.review}
                 </p>
               </div>
             </div>
           ))}
         </div>
-        {/* View more
-        <div className="mt-6 text-center">
+        {/* View more */}
+        {reviewsCount < reviews.length && <div className="mt-6 text-center">
           <button
             type="button"
-            className="mb-2 me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 hover:text-white "
+            onClick={handleCount}
+            className="will-change-transform transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300 rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             View more reviews
           </button>
-        </div> */}
+        </div>}
       </div>
     </section>
   );
-
 }

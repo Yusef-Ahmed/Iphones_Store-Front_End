@@ -11,7 +11,7 @@ export function AuthForm() {
 
   return (
     <>
-      <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 mt-16 lg:px-8">
+      <div className="flex flex-col justify-center flex-1 min-h-full px-6 pt-0 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Link to="/" className="relative">
             <img
@@ -20,7 +20,7 @@ export function AuthForm() {
               className="w-auto h-32 mx-auto transition duration-300 delay-150 hover:-translate-y-1 hover:scale-110"
             />
           </Link>
-          <h2 className="mt-10 text-2xl font-bold leading-9 tracking-tight text-center">
+          <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-center">
             {!signUp ? "Sign in to your account" : "Sign up now for free!"}
           </h2>
         </div>
@@ -56,7 +56,7 @@ export function AuthForm() {
                     name="name"
                     type="text"
                     required
-                    autoComplete="name"
+                    autoComplete="off"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -75,7 +75,7 @@ export function AuthForm() {
                   name="email"
                   type="email"
                   required
-                  autoComplete="email"
+                  autoComplete="off"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -96,7 +96,7 @@ export function AuthForm() {
                   name="password"
                   type="password"
                   required
-                  autoComplete="current-password"
+                  autoComplete="off"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
