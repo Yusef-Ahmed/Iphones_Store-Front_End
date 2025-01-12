@@ -74,7 +74,7 @@ export function Cards({ products }) {
 }
 
 export async function fetchCardsLoader(params) {
-  const response = await fetch("http://localhost:5000/product?" + params, {
+  const response = await fetch("http://localhost:5000/product?numOfElements=8&" + params, {
     headers: {
       Authorization: getAuthToken(),
     },

@@ -2,7 +2,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { Link, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
 import { Reviews } from "./Reviews";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import CircleChart from "./CircleChart";
 import ApexChart from "./ApexChart";
 import { Cards } from "./Cards";
@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 
 export function Product() {
   const data = useLoaderData();
+  const [matched, setMatched] = useState(4);
   const reviewRef = useRef(null);
   const size = data.reviews.length;
   const series = { positive: 0, negative: 0 };
@@ -19,6 +20,14 @@ export function Product() {
     rates[review.rating - 1]++;
     series[review.sentiment]++;
   });
+
+  const matches = data.matchedProducts.filter(
+    (_product, index) => index < matched
+  );
+
+  function handleMatched() {
+    setMatched((prev) => prev + 4);
+  }
 
   return (
     <div className="pt-16">
@@ -62,25 +71,25 @@ export function Product() {
       <div className="flex gap-x-16 px-2 py-10">
         {/*               Product image               */}
         <div className="w-1/3 flex justify-center items-start">
-            <motion.img
+          <motion.img
             initial={{ opacity: 0, x: -200 }}
-            animate={{opacity: 1, x: 0 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{
               duration: 1,
               ease: "easeOut",
               delay: 1,
             }}
-              alt={data.ProductTitle}
-              src={data.ProductImage}
-              className={
-                "hover:scale-125 transition-all mx-3 sticky top-5 rounded-lg h-96 object-contain"
-              }
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src =
-                  "https://i.pinimg.com/736x/fa/28/83/fa2883910c05537c886c8950c0c4d325.jpg";
-              }}
-            />
+            alt={data.ProductTitle}
+            src={data.ProductImage}
+            className={
+              "hover:scale-125 transition-all mx-3 sticky top-5 rounded-lg h-96 object-contain"
+            }
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                "https://i.pinimg.com/736x/fa/28/83/fa2883910c05537c886c8950c0c4d325.jpg";
+            }}
+          />
         </div>
         <div className="w-2/3">
           <Section delay={1}>
@@ -255,20 +264,32 @@ export function Product() {
         <div className="mx-8 border-b-2 border-slate-500 py-6">
           <h1 className="font-semibold">Matched Products</h1>
           <Section>
-          <Cards products={data.matchedProducts} />
-      </Section>
+            <Cards products={matches} />
+            {matched < data.matchedProducts.length && (
+              <div className="mt-6 text-center">
+                <button
+                  type="button"
+                  onClick={handleMatched}
+                  className="will-change-transform transition delay-0 hover:-translate-y-1 hover:scale-110 duration-300 rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  View more
+                </button>
+              </div>
+            )}
+          </Section>
         </div>
       )}
 
       {/*               Reviews               */}
       <p ref={reviewRef}></p>
       <Section>
-      <Reviews
-        size={size}
-        reviews={data.reviews}
-        ProductRatings={data.ProductRatings}
-        rates={rates}
-      /></Section>
+        <Reviews
+          size={size}
+          reviews={data.reviews}
+          ProductRatings={data.ProductRatings}
+          rates={rates}
+        />
+      </Section>
       <button
         onClick={() =>
           window.scroll({
