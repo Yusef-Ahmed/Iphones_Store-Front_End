@@ -1,8 +1,9 @@
-import Youssef_Ahmed from "../assets/Youssef_Ahmed.png";
-import Maro_Adel from "../assets/Maro_Adel.png";
-import Seif_Hassan from "../assets/Seif_Hassan.JPEG";
-import Bassant_Selim from "../assets/Bassant_Selim.png";
-import Zyad_Ellethy from "../assets/Zyad_Ellethy.png";
+import Youssef_Ahmed from "../assets/Team_Images/Youssef_Ahmed.png";
+import Maro_Adel from "../assets/Team_Images/Maro_Adel.jpg";
+import Seif_Hassan from "../assets/Team_Images/Seif_Hassan.JPEG";
+import Bassant_Selim from "../assets/Team_Images/Bassant_Selim.png";
+import Zyad_Ellethy from "../assets/Team_Images/Zyad_Ellethy.png";
+import Abdelrahman_Ahmed from "../assets/Team_Images/Abdelrahman_Ahmed.jpg";
 
 const people = [
   {
@@ -28,7 +29,7 @@ const people = [
   {
     name: "Abdo Ahmed",
     role: "Back-End Developer",
-    imageUrl: "",
+    imageUrl: Abdelrahman_Ahmed,
   },
   {
     name: "Zyad Ellethy",

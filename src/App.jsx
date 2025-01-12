@@ -1,13 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RootLayout } from "./pages/RootLayout";
 import { Auth, authAction } from "./pages/Auth";
-import { TeamSection } from "./components/TeamSection";
+import { TeamSection } from "./pages/TeamSection";
 import Error from "./pages/Error";
-import { loader as cardsLoader } from "./components/Cards";
-import { Product, loader as productLoader } from "./components/Product";
-import { HomeHeader } from "./components/HomeHeader";
-import { Products } from "./components/Products";
-import { authLoader, checkAuthLoader } from "../util/auth.jsx";
+import { loader as cardsLoader } from "./pages/Products.jsx";
+import { Product, loader as productLoader } from "./pages/Product";
+import { HomeHeader } from "./pages/Home.jsx";
+import { Products } from "./pages/Products";
+import {
+  accessAuthLoader,
+  authLoader,
+  checkAuthLoader,
+} from "../util/auth.jsx";
 import { logoutAction } from "./pages/LogOut.jsx";
 
 function App() {
@@ -20,12 +24,16 @@ function App() {
       loader: authLoader,
       children: [
         { index: true, element: <HomeHeader /> },
-        { path: "auth", element: <Auth />, action: authAction },
+        {
+          path: "auth",
+          element: <Auth />,
+          loader: accessAuthLoader,
+          action: authAction,
+        },
         { path: "teamSection", element: <TeamSection /> },
         {
           path: "products",
           loader: checkAuthLoader,
-          // action: deleteAction,
           children: [
             {
               index: true,
@@ -39,17 +47,6 @@ function App() {
             },
           ],
         },
-        // {
-        //   path: "edit/:id",
-        //   element: <EditProduct />,
-        //   action: editProductAction,
-        //   loader: productLoader,
-        // },
-        // {
-        //   path: "add-product",
-        //   element: <AddProduct />,
-        //   action: addProductAction,
-        // },
         { path: "logout", action: logoutAction },
       ],
     },

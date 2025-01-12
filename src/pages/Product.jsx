@@ -1,13 +1,14 @@
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Link, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../util/auth";
-import { Reviews } from "./Reviews";
+import { Reviews } from "../components/Reviews";
 import { useRef, useState } from "react";
-import CircleChart from "./CircleChart";
-import ApexChart from "./ApexChart";
-import { Cards } from "./Cards";
-import { Section } from "./Section";
+import CircleChart from "../components/CircleChart";
+import ApexChart from "../components/ApexChart";
+import { Cards } from "../components/Cards";
+import { Section } from "../components/Section";
 import { motion } from "framer-motion";
+import { ScrollToTop } from "../components/ScrolltoTop";
 
 export function Product() {
   const data = useLoaderData();
@@ -31,6 +32,7 @@ export function Product() {
 
   return (
     <div className="pt-16">
+      <ScrollToTop />
       {/*               Header name               */}
       <Section>
         <nav aria-label="Breadcrumb">
@@ -236,9 +238,17 @@ export function Product() {
         {/*               Seller Name               */}
         <Section>
           <div className="mx-8 border-b-2 border-slate-500 py-6">
-            <h1 className="font-semibold mb-2">
-              Seller name : {data.SellerName}
-            </h1>
+            <div className="flex gap-4 items-center mb-2">
+              <h1 className="font-semibold">
+                Seller name : {data.SellerName}
+              </h1>
+              <p className="text-slate-400 text-sm">({data.sellerAnalysis.Count})</p>
+              <div className="flex gap-3">
+
+              <p className="text-slate-400 text-sm">Positive: {data.sellerAnalysis.Positive.toFixed(2)}%</p>
+              <p className="text-slate-400 text-sm">Negative: {data.sellerAnalysis.Negative.toFixed(2)}%</p>
+              </div>
+            </div>
             <a
               href={data.SellerUrl}
               target="_blank"

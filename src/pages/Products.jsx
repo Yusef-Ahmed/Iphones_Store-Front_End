@@ -1,10 +1,10 @@
-import { Cards } from "./Cards";
+import { Cards } from "../components/Cards";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import PaginationControlled from "../components/Pagination";
-import MegaMenu from "./MegaMenu";
+import MegaMenu from "../components/MegaMenu";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
+import { getAuthToken } from "../../util/auth";
 
 export function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -93,7 +93,7 @@ export function Products() {
                 <div className="w-full">
                   <select
                     name="maxRating"
-                    class="text-center block appearance-none w-full border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    className="text-center block appearance-none w-full border border-gray-200 text-gray-800 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
                   >
                     <option value="">Max Rating</option>
@@ -112,7 +112,7 @@ export function Products() {
               <div className="w-full">
                 <select
                   name="marketplace"
-                  class="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"
                 >
                   <option value="">All</option>
@@ -121,32 +121,6 @@ export function Products() {
                   <option value="jumia">Jumia</option>
                 </select>
               </div>
-              {/* <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="amazon"
-                  className="w-4 h-4 text-blue-600 rounded bg-gray-700 border-gray-600"
-                />
-                <label className="ml-1 mr-5 text-sm font-medium text-slate-200">
-                  Amazon
-                </label>
-                <input
-                  type="checkbox"
-                  name="noon"
-                  className="w-4 h-4 text-blue-600 rounded bg-gray-700 border-gray-600"
-                />
-                <label className="ml-1 mr-5 text-sm font-medium text-slate-200">
-                  Noon
-                </label>
-                <input
-                  type="checkbox"
-                  name="jumia"
-                  className="w-4 h-4 text-blue-600 rounded bg-gray-700 border-gray-600"
-                />
-                <label className="ml-1 mr-5 text-sm font-medium text-slate-200">
-                  Jumia
-                </label>
-              </div> */}
             </div>
             <div className="flex items-end">
 
@@ -163,4 +137,28 @@ export function Products() {
       </div>
     </>
   );
+}
+
+export async function fetchCardsLoader(params) {
+  const response = await fetch(
+    "http://localhost:5000/product?numOfElements=8&" + params,
+    {
+      headers: {
+        Authorization: getAuthToken(),
+      },
+    }
+  );
+  const resData = await response.json();
+
+  if (!response.ok) console.log("fetchCardsLoader not ok");
+
+  return resData;
+}
+
+export function loader({ request }) {
+  const searchParams = new URL(request.url).searchParams;
+  let params = "";
+  searchParams.forEach((value, key) => (params += key + "=" + value + "&"));
+  params = params.substring(0, params.length - 1);
+  return fetchCardsLoader(params);
 }

@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { VantaHalo } from "./VantaHalo.jsx";
+import { VantaHalo } from "../components/VantaHalo.jsx";
 import Iphone from "../assets/homeImages/iphone.png";
 import HeadPhone from "../assets/homeImages/HeadPhone.png";
-// import MacBook from "../assets/homeImages/MacBook.png";
 import AirPods from "../assets/homeImages/AirPods.png";
-import { Floating } from "./Floating.jsx";
+import { Floating } from "../components/Floating.jsx";
 
 export function HomeHeader() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

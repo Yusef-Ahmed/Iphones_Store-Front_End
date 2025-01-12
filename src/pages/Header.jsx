@@ -3,13 +3,11 @@ import logo from "../assets/NewLogo.png";
 
 const navigation = [
   { name: "Products", to: "/products" },
-  // { name: "Favorites", to: "/auth" },
-  // { name: "Promotion", to: "/auth" },
   { name: "About Us", to: "/teamSection" },
 ];
 
 export function Header() {
-  const loggedIn = useRouteLoaderData("root");
+  const isLoggedIn = useRouteLoaderData('root');
   
   return (
     <header className=" inset-x-0 top-0 z-50">
@@ -43,7 +41,7 @@ export function Header() {
           
         </div>
         <div className="flex justify-end flex-1">
-          {loggedIn ? (
+          {isLoggedIn ? (
             <Form action="/logout" method="post">
               <button className="text-lg font-semibold leading-6 transition duration-300 will-change-transform delay-0 hover:-translate-y-1 hover:scale-110">
                 Logout

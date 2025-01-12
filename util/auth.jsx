@@ -20,6 +20,16 @@ export function authLoader() {
   return getAuthToken();
 }
 
+export function loggedIn() {
+  if (getAuthToken()) return true;
+  return false;
+}
+
+export function accessAuthLoader() {
+  if (loggedIn()) return redirect("/");
+  return null;
+}
+
 export function checkAuthLoader() {
   const token = getAuthToken();
 
@@ -31,7 +41,7 @@ export function checkAuthLoader() {
   return null;
 }
 
-function clear() {
+export function clear() {
   localStorage.removeItem("token");
   localStorage.removeItem("role");
   localStorage.removeItem("expiration");

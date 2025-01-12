@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { getAuthToken } from "../../util/auth";
 import { StarIcon } from "@heroicons/react/20/solid";
-
 
 export function Cards({ products }) {
   return (
@@ -29,9 +27,25 @@ export function Cards({ products }) {
 
               <section className="flex flex-col justify-between mt-5 px-2">
                 {/*               Title               */}
-                <h3 className="text-sm overflow-hidden h-10">
+                <h3 className="text-sm overflow-hidden">
                   {product.ProductTitle}
                 </h3>
+                {/* market & sellerAnalysis */}
+                <div className="flex justify-between">
+                  <p className="text-sm text-slate-400">
+                    Market : {product.MarketPlace}
+                  </p>
+                  {product.sellerAnalysis && (
+                    <div>
+                      <p className="text-sm text-slate-400">
+                        Positive : {product.sellerAnalysis.Positive.toFixed(1)}%
+                      </p>
+                      <p className="text-sm text-slate-400">
+                        Negative : {product.sellerAnalysis.Negative.toFixed(1)}%
+                      </p>
+                    </div>
+                  )}
+                </div>
 
                 <div className="flex justify-between mt-5">
                   {/*               Price               */}
@@ -73,23 +87,3 @@ export function Cards({ products }) {
   );
 }
 
-export async function fetchCardsLoader(params) {
-  const response = await fetch("http://localhost:5000/product?numOfElements=8&" + params, {
-    headers: {
-      Authorization: getAuthToken(),
-    },
-  });
-  const resData = await response.json();
-
-  if (!response.ok) console.log("fetchCardsLoader not ok");
-
-  return resData;
-}
-
-export function loader({ request }) {
-  const searchParams = new URL(request.url).searchParams;
-  let params = "";
-  searchParams.forEach((value, key) => (params += key + "=" + value + "&"));
-  params = params.substring(0, params.length - 1);
-  return fetchCardsLoader(params);
-}
