@@ -9,6 +9,7 @@ import { Cards } from "../components/Cards";
 import { Section } from "../components/Section";
 import { motion } from "framer-motion";
 import { ScrollToTop } from "../components/ScrolltoTop";
+import { ColumnChart } from "../components/ColumnChart";
 
 export function Product() {
   const data = useLoaderData();
@@ -17,9 +18,20 @@ export function Product() {
   const size = data.reviews.length;
   const series = { positive: 0, negative: 0 };
   const rates = [0, 0, 0, 0, 0];
+  const revCat = {
+    General: { positive: 0, negative: 0 },
+    Mic: { positive: 0, negative: 0 },
+    Camera: { positive: 0, negative: 0 },
+    Delivery: { positive: 0, negative: 0 },
+    Screen: { positive: 0, negative: 0 },
+    Prices: { positive: 0, negative: 0 },
+    Efficiency: { positive: 0, negative: 0 },
+    Battery: { positive: 0, negative: 0 },
+  };
   data.reviews.forEach((review) => {
     rates[review.rating - 1]++;
     series[review.sentiment]++;
+    revCat[review.category][review.sentiment]++;
   });
 
   const matches = data.matchedProducts.filter(
@@ -239,14 +251,17 @@ export function Product() {
         <Section>
           <div className="mx-8 border-b-2 border-slate-500 py-6">
             <div className="flex gap-4 items-center mb-2">
-              <h1 className="font-semibold">
-                Seller name : {data.SellerName}
-              </h1>
-              <p className="text-slate-400 text-sm">({data.sellerAnalysis.Count})</p>
+              <h1 className="font-semibold">Seller name : {data.SellerName}</h1>
+              <p className="text-slate-400 text-sm">
+                ({data.sellerAnalysis.Count})
+              </p>
               <div className="flex gap-3">
-
-              <p className="text-slate-400 text-sm">Positive: {data.sellerAnalysis.Positive.toFixed(2)}%</p>
-              <p className="text-slate-400 text-sm">Negative: {data.sellerAnalysis.Negative.toFixed(2)}%</p>
+                <p className="text-slate-400 text-sm">
+                  Positive: {data.sellerAnalysis.Positive.toFixed(2)}%
+                </p>
+                <p className="text-slate-400 text-sm">
+                  Negative: {data.sellerAnalysis.Negative.toFixed(2)}%
+                </p>
               </div>
             </div>
             <a
@@ -261,12 +276,13 @@ export function Product() {
       </div>
       {/*               Charts               */}
       <Section>
-        <div className="flex mx-8 justify-evenly border-b-2 border-slate-500 py-4 items-center">
+        <div className="flex mx-8 justify-between border-b-2 border-slate-500 py-4 items-center">
           <ApexChart
             positive={series["positive"]}
             negative={series["negative"]}
           />
           <CircleChart total={size} rates={rates} />
+          <ColumnChart revCat={revCat} />
         </div>
       </Section>
       {/*               Matched Products               */}

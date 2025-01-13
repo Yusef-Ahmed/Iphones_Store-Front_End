@@ -33,6 +33,7 @@ const CircleChart = ({ rates, total }) => {
             },
             style: {
               colors: ["#e2e8f0"],
+              
             },
           },
           barLabels: {

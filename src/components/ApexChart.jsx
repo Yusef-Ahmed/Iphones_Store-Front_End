@@ -25,10 +25,12 @@ const ApexChart = ({ positive, negative }) => {
       legend: {
         labels: {
           colors: "#e2e8f0",
+          
         },
         position: "bottom",
         horizontalAlign: "center",
         fontSize: "16px",
+        fontFamily: "cursive",
       },
       responsive: [
         {
