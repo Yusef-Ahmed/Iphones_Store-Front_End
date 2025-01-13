@@ -4,6 +4,7 @@ import { Auth, authAction } from "./pages/Auth";
 import { TeamSection } from "./pages/TeamSection";
 import Error from "./pages/Error";
 import { loader as cardsLoader } from "./pages/Products.jsx";
+import { loader as wishLoader } from "./pages/WishList.jsx";
 import { Product, loader as productLoader } from "./pages/Product";
 import { HomeHeader } from "./pages/Home.jsx";
 import { Products } from "./pages/Products";
@@ -13,6 +14,7 @@ import {
   checkAuthLoader,
 } from "../util/auth.jsx";
 import { logoutAction } from "./pages/LogOut.jsx";
+import { WishList } from "./pages/WishList.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,6 +47,13 @@ function App() {
               element: <Product />,
               loader: productLoader,
             },
+          ],
+        },
+        {
+          path: "WishList",
+          loader: checkAuthLoader,
+          children: [
+            { index: true, element: <WishList />, loader: wishLoader },
           ],
         },
         { path: "logout", action: logoutAction },

@@ -105,7 +105,7 @@ export function Product() {
             }}
           />
         </div>
-        <div className="w-2/3">
+        <div className="w-2/3 mr-2">
           <Section delay={1}>
             {/*               Product title               */}
             <h1 className="font-bold tracking-tight text-slate-200 text-3xl">
@@ -290,7 +290,7 @@ export function Product() {
         <div className="mx-8 border-b-2 border-slate-500 py-6">
           <h1 className="font-semibold">Matched Products</h1>
           <Section>
-            <Cards products={matches} />
+            <Cards type={"matched"} products={matches} />
             {matched < data.matchedProducts.length && (
               <div className="mt-6 text-center">
                 <button

@@ -14,8 +14,8 @@ export default function PaginationControlled({ total }) {
             color: '#d0d7e0', 
             fontSize: '1.2rem',
             margin: '0 7px',
-            minWidth: '45px', // Wider buttons
-            height: '45px', // Taller buttons
+            minWidth: '45px',
+            height: '45px',
             '&.Mui-selected': {
               backgroundColor: '#4F46E5',
               color: 'white', 

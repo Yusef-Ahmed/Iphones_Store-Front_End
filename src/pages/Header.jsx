@@ -3,6 +3,7 @@ import logo from "../assets/NewLogo.png";
 
 const navigation = [
   { name: "Products", to: "/products" },
+  { name: "Wish List", to: "/WishList" },
   { name: "About Us", to: "/teamSection" },
 ];
 
